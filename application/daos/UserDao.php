@@ -20,7 +20,7 @@ class App_Dao_UserDao {
 		return $this->_entityManager->find("App_Model_User", $id);
 	}
 	
-	public function getUserByPassword($username, $password) {
+	public function getByUserPassword($username, $password) {
 		$query = $this->_entityManager->createQuery("SELECT u FROM App_Model_User u WHERE u._username = '" . $username . "' and u._contrasenia ='" . $password . "'");
 		$arrayResult = $query->getResult();
 
@@ -30,4 +30,23 @@ class App_Dao_UserDao {
 			return null;
 		}
 	}
+	
+	public function getAll() {
+		$query = $this->_entityManager->createQuery('SELECT u FROM App_Model_User u');
+		return $query->getResult();
+	}
+	
+	public function countAll() {
+		$query = $this->_entityManager->createQuery('SELECT COUNT(u) FROM App_Model_User u');
+		return $query->getSingleScalarResult();
+	}
+	
+	public function getAllLimitOffset($limit, $offset)
+	{
+		$query = $this->_entityManager->createQuery('SELECT u FROM App_Model_User u')
+								->setFirstResult($offset)
+								->setMaxResults($limit);
+		
+		return $query->getResult();
+	}	
 }
