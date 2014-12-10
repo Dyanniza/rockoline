@@ -36,6 +36,10 @@ class App_Model_User
 	 * @Column(name="password", type="string", length=200, nullable=false)
 	 */
 	private $_password;
+	
+	/**
+	 * @var array
+	 */
 	 
 	public function getId() {
 		return $this->_id;
