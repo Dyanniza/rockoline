@@ -39,12 +39,23 @@ class App_Model_User
 	
 	/**
 	 * @var array
+	 * 
+	 * @OneToMany(targetEntity="App_Model_Playlist", mappedBy="_user", cascade={"all"})
 	 */
+	private $_playlists;
 	 
+	public function __construct() {
+		$this->_playlists = array();
+	}
+	
 	public function getId() {
 		return $this->_id;
 	}
 	
+	public function addPlaylist(App_Model_Playlist $playlist) {
+		$playlist->setUser($this);
+		$this->_playlists[] = $playlist;
+	}	
 	public function setName($name) {
 		$this->_name = $name;
 	}
